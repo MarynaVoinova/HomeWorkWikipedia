@@ -1,0 +1,64 @@
+package ui;
+
+import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.By;
+
+public class MyListsPageObject extends MainPageObject
+{
+    public MyListsPageObject(AppiumDriver driver)
+    {
+        super(driver);
+    }
+
+    public static final String
+        FOLDER_BY_NAME_TPL = "//*[@text='{FOLDER_NAME}']",
+        ARTICLE_BY_TITLE_TPL = "//*[@text='{TITLE}']";
+
+    private static String getFolderXpathByName(String name_of_folder)
+    {
+        return FOLDER_BY_NAME_TPL.replace("{FOLDER_NAME}", name_of_folder);
+    }
+
+    private static String getSavedArticleXpathByTitle(String article_title)
+    {
+        return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", article_title);
+    }
+
+    public void openFolderByName(String name_of_folder)
+    {
+        String folderNameXPath = getFolderXpathByName(name_of_folder);
+        this.waitForElementAndClick(
+                By.xpath(folderNameXPath),
+                "Cannot find folder by name " + name_of_folder,
+                5
+        );
+    }
+
+    public void waitForArticleToAppearByTitle(String article_title)
+    {
+        String articleTitleXPath = getSavedArticleXpathByTitle(article_title);
+        this.waitForElementPresent(
+                By.xpath(articleTitleXPath),
+                "Cannot find saved article by title " + article_title,
+                15);
+    }
+
+    public void waitForArticleToDisappear(String article_title)
+    {
+        String articleTitleXPath = getSavedArticleXpathByTitle(article_title);
+        this.waitForElementNotPresent(
+                By.xpath(articleTitleXPath),
+                "Saved article is still present with title " + article_title,
+                15);
+    }
+
+    public void swipeByArticleToDelete(String article_title)
+    {
+
+        waitForArticleToAppearByTitle(article_title);
+        String articleTitleXPath = getSavedArticleXpathByTitle(article_title);
+        this.swipeElementToLeft(By.xpath(articleTitleXPath), "Cannot find saved article");
+        this.waitForElementNotPresent(By.xpath(articleTitleXPath), "Cannot delete saved article", 5);
+        this.waitForArticleToDisappear(article_title);
+    }
+}
