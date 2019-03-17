@@ -16,4 +16,13 @@ public class NavigationUI extends MainPageObject
     {
         this.waitForElementAndClick(By.xpath(MY_LISTS_LINK), "Cannot find navigation button to My list", 5);
     }
+
+    public void goToTheArticle(String input_search, String article_text_in_search_result) {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine(input_search);
+        SearchPageObject.clickByArticleWithSubstring(article_text_in_search_result);
+    }
+
 }

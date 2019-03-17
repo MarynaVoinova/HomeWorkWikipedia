@@ -14,6 +14,7 @@ public class ArticlePageObject extends MainPageObject
         ADD_TO_MY_LIST_OVERLAY = "org.wikipedia:id/onboarding_button",
         MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input",
         MY_LIST_OK_BUTTON = "//*[@text='OK']",
+        MY_LIST_BY_NAME_TPL = "//*[@text='{LIST_NAME}']",
         CLOSE_ARTICLE_BUTTON = "//android.widget.ImageButton[@content-desc='Navigate up']";
 
 
@@ -21,6 +22,13 @@ public class ArticlePageObject extends MainPageObject
     {
         super(driver);
     }
+
+    /*TEMPLATE METHODS*/
+    private static String getMyListByNameXpath(String list_name)
+    {
+        return MY_LIST_BY_NAME_TPL.replace("{LIST_NAME}", list_name);
+    }
+    /*TEMPLATE METHODS*/
 
     public WebElement waitForTitleElement()
     {
@@ -80,6 +88,29 @@ public class ArticlePageObject extends MainPageObject
         this.waitForElementAndClick(
                 By.xpath(MY_LIST_OK_BUTTON),
                 "cannot press OK button",
+                5
+        );
+    }
+
+    public void addArticleToExistingFolder(String folder_name){
+
+        this.waitForElementAndClick(
+                By.xpath(OPTIONS_BUTTON),
+                "Cannot find button to open article options.",
+                5
+        );
+
+        this.waitForElementAndClick(
+                By.xpath(OPTIONS_ADD_TO_MY_LIST_BUTTON),
+                "Cannot find the option to add the article to reading list.",
+                5
+        );
+
+        String myListByNameXpath = getMyListByNameXpath(folder_name);
+
+        this.waitForElementAndClick(
+                By.xpath(myListByNameXpath),
+                "Cannot find the existing reading list " + folder_name,
                 5
         );
     }

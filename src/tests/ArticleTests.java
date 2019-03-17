@@ -38,4 +38,15 @@ public class ArticleTests extends CoreTestCase
         ArticlePageObject.swipeToFooter();
     }
 
+    @Test
+    public void testThatTitleIsPresentEx6(){
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.initSearchInput();
+        String search_line = "Java";
+        SearchPageObject.typeSearchLine(search_line);
+        String expected_title = "Object-oriented programming language";
+        SearchPageObject.clickByArticleWithSubstring(expected_title);
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.assertTitleElementIsPresent();
+    }
 }
