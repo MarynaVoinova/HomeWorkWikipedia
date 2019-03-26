@@ -79,4 +79,17 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.assertSearchListResultsContainSearchString(search_result_list, search_line);
     }
 
+    @Test
+    public void testSearchTitleAndDescriptionPresentInSearchResultsEx9(){
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.initSearchInput();
+        String search_line = "Java";
+        String title = "Java (programming language)";
+        String description = "Object-oriented programming language";
+        SearchPageObject.typeSearchLine(search_line);
+        //SearchPageObject.waitForElementByTitleAndDescription(title, description);
+        SearchPageObject.waitForAndDeleteBYTITLE(title);
+        //List<WebElement> search_result_list = SearchPageObject.getSearchResultList();
+        //SearchPageObject.assertSearchListResultsContainSearchString(search_result_list, search_line);
+    }
 }
