@@ -1,13 +1,10 @@
 package tests;
 
 import lib.CoreTestCase;
-import org.junit.Assert;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ui.ArticlePageObject;
-import ui.MainPageObject;
-import ui.SearchPageObject;
+import lib.ui.SearchPageObject;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class SearchTests extends CoreTestCase
     @Test
     public void testSearch()
     {
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("Object-oriented programming language");
@@ -25,7 +22,7 @@ public class SearchTests extends CoreTestCase
     @Test
     public void testCancelSearch()
     {
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.waitForCancelButtonToAppear();
         SearchPageObject.clickCancelSearch();
@@ -34,7 +31,7 @@ public class SearchTests extends CoreTestCase
 
     @Test
     public void testAmountOfNotEmptySearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String search_line = "Linkin Park Discography";
         SearchPageObject.typeSearchLine(search_line);
@@ -47,7 +44,7 @@ public class SearchTests extends CoreTestCase
 
     @Test
     public void testAmountOfEmptySearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String search_line = "fshkfksk";
         SearchPageObject.typeSearchLine(search_line);
@@ -57,7 +54,7 @@ public class SearchTests extends CoreTestCase
 
     @Test
     public void testCancelSearchCleansSearchResultsEx3(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("Object-oriented programming language");
@@ -71,7 +68,7 @@ public class SearchTests extends CoreTestCase
     }
     @Test
     public void testSearchTextPresentInSearchResultsEx4(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String search_line = "Java";
         SearchPageObject.typeSearchLine(search_line);
@@ -81,7 +78,7 @@ public class SearchTests extends CoreTestCase
 
     @Test
     public void testSearchTitleAndDescriptionPresentInSearchResultsEx9(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String search_line = "Java";
         String title = "Java (programming language)";

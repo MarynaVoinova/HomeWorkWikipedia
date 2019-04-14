@@ -1,16 +1,16 @@
-package ui;
+package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import lib.Platform;
 
-public class MyListsPageObject extends MainPageObject
+abstract public class MyListsPageObject extends MainPageObject
 {
     public MyListsPageObject(AppiumDriver driver)
     {
         super(driver);
     }
 
-    public static final String
+    protected static  String
         FOLDER_BY_NAME_TPL = "xpath://*[@text='{FOLDER_NAME}']",
         ARTICLE_BY_TITLE_TPL = "xpath://*[@text='{TITLE}']";
 
@@ -58,7 +58,10 @@ public class MyListsPageObject extends MainPageObject
         waitForArticleToAppearByTitle(article_title);
         String articleTitleXPath = getSavedArticleXpathByTitle(article_title);
         this.swipeElementToLeft(articleTitleXPath, "Cannot find saved article");
-        this.waitForElementNotPresent(articleTitleXPath, "Cannot delete saved article", 5);
+        //this.waitForElementNotPresent(articleTitleXPath, "Cannot delete saved article", 5);
+        if (Platform.getInstance().isIOS()){
+           this.ClickElementRoTheRightUpperCorner(articleTitleXPath, "Cannot find saved article");
+        }
         this.waitForArticleToDisappear(article_title);
     }
 }

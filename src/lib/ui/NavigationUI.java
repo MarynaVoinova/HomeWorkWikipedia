@@ -1,12 +1,12 @@
-package ui;
+package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import lib.ui.factories.SearchPageObjectFactory;
 
-public class NavigationUI extends MainPageObject
+abstract public class NavigationUI extends MainPageObject
 {
-    private static final String
-        MY_LISTS_LINK = "xpath://android.widget.FrameLayout[@content-desc='My lists']";
+    protected static  String
+        MY_LISTS_LINK; //= "xpath://android.widget.FrameLayout[@content-desc='My lists']";
     public NavigationUI(AppiumDriver driver)
     {
         super(driver);
@@ -18,7 +18,7 @@ public class NavigationUI extends MainPageObject
     }
 
     public void goToTheArticle(String input_search, String article_text_in_search_result) {
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(input_search);
